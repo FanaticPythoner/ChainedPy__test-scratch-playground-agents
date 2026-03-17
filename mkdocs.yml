@@ -1,0 +1,97 @@
+site_name: ChainedPy
+theme:
+  name: material  # Change from readthedocs to material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.tabs
+    - toc.integrate
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+plugins:
+  - search
+  - autorefs
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [.]
+          options:
+            docstring_style: sphinx
+            docstring_options:
+            show_source: true
+            show_bases: true
+            show_root_heading: true
+            show_root_toc_entry: true
+            show_signature_annotations: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            
+            inherited_members: true
+            members_order: source
+            group_by_category: true
+            
+            separate_signature: true
+            line_length: 80
+            
+            merge_init_into_class: true
+            filters: ["!^__"]
+            show_if_no_docstring: true
+            show_module_attributes: true
+            show_attributes: true
+
+            # Cross-reference configuration
+            cross_references: true
+
+            # External links for Python built-in types
+            external_links:
+              typing.TypeVar: https://docs.python.org/3/library/typing.html#typing.TypeVar
+              typing.Union: https://docs.python.org/3/library/typing.html#typing.Union
+              typing.Optional: https://docs.python.org/3/library/typing.html#typing.Optional
+              typing.List: https://docs.python.org/3/library/typing.html#typing.List
+              typing.Dict: https://docs.python.org/3/library/typing.html#typing.Dict
+              typing.Callable: https://docs.python.org/3/library/typing.html#typing.Callable
+              typing.Any: https://docs.python.org/3/library/typing.html#typing.Any
+              typing.Generic: https://docs.python.org/3/library/typing.html#typing.Generic
+              pathlib.Path: https://docs.python.org/3/library/pathlib.html#pathlib.Path
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Quick-start: quickstart.md
+  - CLI Reference: cli.md
+  - Remote Chains: remote-chains.md
+  - Plugin Development: plugins.md
+  - API Reference:
+    - Chain: chain.md
+    - CLI: cli.md
+    - Constants: constants.md
+    - Exceptions: exceptions.md
+    - Link: link.md
+    - Models: models.md
+    - Plugins: plugins.md
+    - Project: project.md
+    - Register: register.md
+    - Services: services.md
+    - Typing: typing.md
+  - Advanced:
+    - Parallel Patterns: advanced/parallel.md
+    - Coding Standards: coding-standards.md

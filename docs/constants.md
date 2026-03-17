@@ -1,0 +1,3 @@
+# Constants Module
+
+::: chainedpy.constants

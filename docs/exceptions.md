@@ -1,0 +1,3 @@
+# Exceptions Module
+
+::: chainedpy.exceptions

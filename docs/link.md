@@ -1,0 +1,3 @@
+# Link Module
+
+::: chainedpy.link
