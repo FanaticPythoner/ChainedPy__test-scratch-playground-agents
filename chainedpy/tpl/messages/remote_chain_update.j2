@@ -1,0 +1,13 @@
+🔄 Checking for updates to remote chains in: {{ project_path }}
+
+{% if not force_update %}🔍 Detecting changes in remote chains...
+{% if not has_changes %}✅ Remote chains are up to date!{% else %}📦 Changes detected in remote chains{% endif %}
+{% endif %}
+{% if has_changes or force_update %}⬇️  Updating remote chains from: {{ base_project }}
+
+✅ Successfully updated {{ updated_count }} remote chain(s):
+{% for chain_name in updated_chains %}   - {{ chain_name }}
+{% endfor %}
+🔄 Updating project chain file...
+
+✅ Remote chains updated successfully!{% endif %}

@@ -1,0 +1,19 @@
+✅ {{ plugin_prefix }}{{ plugin_name }} {{ plugin_type }} created successfully!
+
+📁 Plugin file: "{{ file_path }}"
+🔧 {{ method_type }}: .{{ plugin_prefix }}{{ plugin_name }}()
+{{ stub_message }}
+
+📝 NEXT STEPS:
+1. Edit the {{ plugin_type }} file to customize your implementation
+2. Replace {{"{{SUMMARY / DESCRIPTION}}"}} placeholders with your content
+3. Choose from the 4 example parameter patterns (HTTP, validation, file ops, transformation)
+4. Implement your logic using the provided implementation patterns
+{{ stub_help_message }}
+
+💡 The template includes 4 complete implementation patterns with examples.
+Your new {{ method_type }} will be available as:
+result = await (
+    Chain(data)
+    {{ usage_example }}
+)

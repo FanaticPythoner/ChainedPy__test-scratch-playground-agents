@@ -1,0 +1,33 @@
+# ChainedPy shell integration
+# Add this to your ~/.bashrc, ~/.zshrc, or ~/.profile
+
+chainedpy() {
+    case "$1" in
+        activate)
+            if [ -z "$2" ]; then
+                echo "Usage: chainedpy activate <project-path>"
+                return 1
+            fi
+            eval "$(command chainedpy activate-project --project-path "$2" --shell bash)"
+            ;;
+        deactivate)
+            eval "$(command chainedpy deactivate-project --shell bash)"
+            ;;
+        *)
+            command chainedpy "$@"
+            ;;
+    esac
+}
+
+# Auto-completion for chainedpy activate
+_chainedpy_complete() {
+    local cur prev
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    if [ "$prev" = "activate" ]; then
+        COMPREPLY=( $(compgen -d -- "$cur") )
+    fi
+}
+complete -F _chainedpy_complete chainedpy

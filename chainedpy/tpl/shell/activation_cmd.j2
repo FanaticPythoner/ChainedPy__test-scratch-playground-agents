@@ -1,0 +1,9 @@
+{# Template for cmd/batch shell activation script #}
+set {{ env_var }}={{ project_path_str }}
+set CHAINEDPY_PROJECT_NAME={{ project_name }}
+if not defined CHAINEDPY_PROJECT_STACK (
+    set CHAINEDPY_PROJECT_STACK={{ project_path_str }}
+) else (
+    set CHAINEDPY_PROJECT_STACK={{ project_path_str }};%CHAINEDPY_PROJECT_STACK%
+)
+echo ChainedPy project activated: {{ project_name }}

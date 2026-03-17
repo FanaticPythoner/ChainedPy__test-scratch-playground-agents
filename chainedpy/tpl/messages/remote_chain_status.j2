@@ -1,0 +1,24 @@
+📊 Remote Chain Status for: {{ project_name }}
+{{ "=" * 60 }}
+
+🏗️  Project: {{ status.project_name }}
+📍 Base URL: {{ status.base_url }}
+📁 Project Path: {{ status.project_path }}
+
+{% if not status.remote_chains %}📭 No remote chains found{% else %}📦 Remote Chains ({{ status.remote_chains|length }}):
+{{ "-" * 40 }}
+
+{% for chain in status.remote_chains %}🔗 {{ chain.name }}
+   📍 URL: {{ chain.url }}
+   📁 Local: {{ chain.local_path }}
+   📅 Downloaded: {{ chain.last_updated }}
+   📦 Size: {{ "%.2f"|format(chain.size_mb) }} MB
+   🔄 Status: {{ chain.status }}
+   {% if chain.has_updates %}⚠️  Updates available!{% else %}✅ Up to date{% endif %}
+
+{% endfor %}📊 Summary:
+   📦 Total chains: {{ total_chains }}
+   🔄 Chains with updates: {{ chains_with_updates }}
+   💾 Total size: {{ "%.2f"|format(total_size) }} MB
+
+{% if chains_with_updates > 0 %}💡 Run 'chainedpy update-remote-chains' to download {{ chains_with_updates }} update(s){% endif %}{% endif %}

@@ -1,0 +1,15 @@
+REM ChainedPy shell integration
+REM Add this to a batch file and call it from your command prompt
+
+@echo off
+if "%1"=="activate" (
+    if "%2"=="" (
+        echo Usage: chainedpy activate ^<project-path^>
+        exit /b 1
+    )
+    for /f "delims=" %%i in ('chainedpy activate-project --project-path "%2" --shell cmd') do %%i
+) else if "%1"=="deactivate" (
+    for /f "delims=" %%i in ('chainedpy deactivate-project --shell cmd') do %%i
+) else (
+    chainedpy %*
+)

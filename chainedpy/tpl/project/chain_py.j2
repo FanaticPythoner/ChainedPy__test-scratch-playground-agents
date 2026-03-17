@@ -1,0 +1,25 @@
+{# Template for project chain.py file #}
+# Dual import strategy for Pylance and runtime compatibility, otherwise linting issues
+{% if base_import.startswith('from .') %}
+try:
+    # Try relative import first (works at runtime)
+    {{ base_import }}
+except ImportError:
+    # Fallback to absolute import (works for Pylance, this will never be reached)
+    {{ base_import.replace('from .', 'from ') }}
+{% else %}
+{{ base_import }}
+{% endif %}
+from importlib import import_module
+import pkgutil, pathlib
+
+# auto-import project plugins on import -------------------------
+_plugins_dir = pathlib.Path(__file__).with_suffix('').parent / 'plugins'
+for subdir in ['then', 'as_', 'processors']:
+    subdir_path = _plugins_dir / subdir
+    if subdir_path.exists():
+        for mod in pkgutil.iter_modules([str(subdir_path)]):
+            if not mod.name.startswith('_'):
+                import_module(f'{__package__}.plugins.{subdir}.' + mod.name)
+
+__all__ = ('Chain',)

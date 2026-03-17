@@ -1,0 +1,16 @@
+{# Template for fish shell deactivation script #}
+if set -q {{ env_var }}
+    set PROJECT_NAME "$CHAINEDPY_PROJECT_NAME"
+    set -e {{ env_var }}
+    set -e CHAINEDPY_PROJECT_NAME
+    if set -q CHAINEDPY_PROJECT_STACK
+        set -gx CHAINEDPY_PROJECT_STACK (string split ":" $CHAINEDPY_PROJECT_STACK)[2..-1]
+        if test (count $CHAINEDPY_PROJECT_STACK) -eq 0
+            set -e CHAINEDPY_PROJECT_STACK
+        end
+    end
+    set -gx PS1 (string replace "(chainedpy:$PROJECT_NAME) " "" $PS1)
+    echo "ChainedPy project deactivated: $PROJECT_NAME"
+else
+    echo "No ChainedPy project is currently active"
+end

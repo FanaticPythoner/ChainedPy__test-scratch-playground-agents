@@ -1,0 +1,8 @@
+{% if not chain %}No project chain found.{% else %}Project Inheritance Chain:
+{{ "=" * 50 }}
+{% for project in chain %}{% set indent = "  " * loop.index0 %}{% set arrow = "└─ " if loop.index0 > 0 else "" %}{% set location = "(" + project.filesystem_type + ")" if project.is_remote else "(local)" %}{{ indent }}{{ arrow }}{{ project.name }} {{ location }}
+{{ indent }}   Path: {{ project.path }}
+{{ indent }}   Summary: {{ project.summary }}
+{% if project.base_project != default_base_project %}{{ indent }}   Extends: {{ project.base_project }}{% else %}{{ indent }}   Extends: {{ default_base_project }} (base){% endif %}
+{% if not loop.last %}{{ indent }}   │{% endif %}
+{% endfor %}{% endif %}

@@ -1,0 +1,20 @@
+# ChainedPy shell integration
+# Add this to your ~/.config/fish/config.fish
+
+function chainedpy
+    switch $argv[1]
+        case activate
+            if test (count $argv) -lt 2
+                echo "Usage: chainedpy activate <project-path>"
+                return 1
+            end
+            eval (command chainedpy activate-project --project-path $argv[2] --shell fish)
+        case deactivate
+            eval (command chainedpy deactivate-project --shell fish)
+        case '*'
+            command chainedpy $argv
+    end
+end
+
+# Auto-completion for chainedpy activate
+complete -c chainedpy -n '__fish_seen_subcommand_from activate' -a '(__fish_complete_directories)'

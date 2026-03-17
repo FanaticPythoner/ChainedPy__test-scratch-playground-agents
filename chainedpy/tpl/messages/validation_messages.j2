@@ -1,0 +1,3 @@
+{% if message_type == "no_remote_dependencies" %}ℹ️  Project does not have remote dependencies: {{ project_path }}{% endif %}
+{% if message_type == "validated_remote_project" %}✅ Validated remote base project: {{ base_project }}{% endif %}
+{% if message_type == "credential_warning" %}⚠️  Warning: {{ warning_message }}{% endif %}

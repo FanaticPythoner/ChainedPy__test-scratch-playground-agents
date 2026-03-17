@@ -1,0 +1,87 @@
+'''Typed stub file (auto-generated) DO NOT EDIT BY HAND.
+
+This stub allows static analysers (Pyright, Pylance, MyPy) to see dynamically
+registered then_* / as_* plugins and custom processors.
+
+Regenerate with:
+    chainedpy update-project-pyi --project-path "{{ escaped_project_path }}"
+'''
+from __future__ import annotations
+import types
+from typing import Any, Awaitable, Callable, TypeVar, overload, Literal
+
+{{ base_import }}
+
+from chainedpy.plugins.processors import Proc
+from chainedpy.link import Link, Wrapper, Processor
+
+{% for typevar_name, import_stmt in all_typevar_imports.items() %}
+{{ import_stmt }}  # {{ typevar_name }}
+{% endfor %}
+
+class Chain(_BaseChain[_T]):  # type: ignore[misc]
+    """{{ summary }}
+
+    This Chain class extends the base ChainedPy Chain with {{ total_plugins }} method(s) from the entire chain hierarchy.
+    All methods from the entire chain hierarchy are included for proper type checking.
+{% if current_then_methods or current_as_methods %}
+
+    {{ (current_then_methods|length + current_as_methods|length) }} additional plugin(s) from this project:
+{% if current_then_methods %}
+    Available then_* plugins ({{ current_then_methods|length }}):
+{% for method in current_then_methods %}
+    - .{{ method.split('def ')[1].split('(')[0] }}(...)
+{% endfor %}
+{% endif %}
+{% if current_as_methods %}
+    Available as_* plugins ({{ current_as_methods|length }}):
+{% for method in current_as_methods %}
+    - .{{ method.split('def ')[1].split('(')[0] }}(...)
+{% endfor %}
+{% endif %}
+{% endif %}
+    """
+
+    # ═══════════════════════════════════════════════════════════════════════════════════
+    # BASE CHAINEDPY METHODS (always available)
+    # ═══════════════════════════════════════════════════════════════════════════════════
+{% for method in base_then_methods %}
+{{ method }}
+{% endfor %}
+{% if base_then_methods and base_as_methods %}
+
+{% endif %}
+{% for method in base_as_methods %}
+{{ method }}
+{% endfor %}
+
+{% if hierarchy_then_methods or hierarchy_as_methods %}
+    # ═══════════════════════════════════════════════════════════════════════════════════
+    # CHAIN HIERARCHY METHODS (from base projects)
+    # ═══════════════════════════════════════════════════════════════════════════════════
+{% for method in hierarchy_then_methods %}
+{{ method }}
+{% endfor %}
+{% if hierarchy_then_methods and hierarchy_as_methods %}
+
+{% endif %}
+{% for method in hierarchy_as_methods %}
+{{ method }}
+{% endfor %}
+
+{% endif %}
+{% if current_then_methods or current_as_methods %}
+    # ═══════════════════════════════════════════════════════════════════════════════════
+    # CURRENT PROJECT METHODS (from this project)
+    # ═══════════════════════════════════════════════════════════════════════════════════
+{% for method in current_then_methods %}
+{{ method }}
+{% endfor %}
+{% if current_then_methods and current_as_methods %}
+
+{% endif %}
+{% for method in current_as_methods %}
+{{ method }}
+{% endfor %}
+
+{% endif %}

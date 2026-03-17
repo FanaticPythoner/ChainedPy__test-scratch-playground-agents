@@ -1,0 +1,11 @@
+📋 Remote chains in project: {{ project_name }}
+{{ "=" * 50 }}
+
+{% if not remote_chains %}📭 No remote chains found in project{% else %}{% for chain in remote_chains %}{{ loop.index }}. {{ chain.name }}
+{% if verbose %}   📍 URL: {{ chain.url }}
+   📁 Local path: {{ chain.local_path }}
+   📅 Last updated: {{ chain.last_updated }}
+   📦 Size: {{ "%.2f"|format(chain.size_mb) }} MB
+
+{% endif %}{% endfor %}
+{% if not verbose %}💡 Use --verbose for detailed information{% endif %}{% endif %}

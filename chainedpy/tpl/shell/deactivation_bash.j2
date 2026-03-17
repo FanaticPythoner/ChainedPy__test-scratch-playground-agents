@@ -1,0 +1,16 @@
+{# Template for bash/zsh/sh shell deactivation script #}
+if [ -n "${{ env_var }}" ]; then
+    PROJECT_NAME="$CHAINEDPY_PROJECT_NAME"
+    unset {{ env_var }}
+    unset CHAINEDPY_PROJECT_NAME
+    if [ -n "$CHAINEDPY_PROJECT_STACK" ]; then
+        export CHAINEDPY_PROJECT_STACK="${CHAINEDPY_PROJECT_STACK#*:}"
+        if [ "$CHAINEDPY_PROJECT_STACK" = "" ]; then
+            unset CHAINEDPY_PROJECT_STACK
+        fi
+    fi
+    export PS1="${PS1#(chainedpy:$PROJECT_NAME) }"
+    echo "ChainedPy project deactivated: $PROJECT_NAME"
+else
+    echo "No ChainedPy project is currently active"
+fi

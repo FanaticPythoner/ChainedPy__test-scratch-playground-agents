@@ -1,0 +1,10 @@
+{# Template for bash/zsh/sh shell activation script #}
+export {{ env_var }}="{{ project_path_str }}"
+export CHAINEDPY_PROJECT_NAME="{{ project_name }}"
+if [ -z "$CHAINEDPY_PROJECT_STACK" ]; then
+    export CHAINEDPY_PROJECT_STACK="{{ project_path_str }}"
+else
+    export CHAINEDPY_PROJECT_STACK="{{ project_path_str }}:$CHAINEDPY_PROJECT_STACK"
+fi
+export PS1="(chainedpy:{{ project_name }}) $PS1"
+echo "ChainedPy project activated: {{ project_name }}"

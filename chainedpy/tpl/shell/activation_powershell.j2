@@ -1,0 +1,10 @@
+{# Template for PowerShell activation script #}
+$env:{{ env_var }} = "{{ project_path_str }}"
+$env:CHAINEDPY_PROJECT_NAME = "{{ project_name }}"
+if (-not $env:CHAINEDPY_PROJECT_STACK) {
+    $env:CHAINEDPY_PROJECT_STACK = "{{ project_path_str }}"
+} else {
+    $env:CHAINEDPY_PROJECT_STACK = "{{ project_path_str }}:$env:CHAINEDPY_PROJECT_STACK"
+}
+function prompt { "(chainedpy:{{ project_name }}) " + (Get-Location).Path + "> " }
+Write-Host "ChainedPy project activated: {{ project_name }}"

@@ -1,0 +1,16 @@
+{# Template for PowerShell deactivation script #}
+if ($env:{{ env_var }}) {
+    $projectName = $env:CHAINEDPY_PROJECT_NAME
+    Remove-Item Env:{{ env_var }}
+    Remove-Item Env:CHAINEDPY_PROJECT_NAME
+    if ($env:CHAINEDPY_PROJECT_STACK) {
+        $env:CHAINEDPY_PROJECT_STACK = ($env:CHAINEDPY_PROJECT_STACK -split ":", 2)[1]
+        if (-not $env:CHAINEDPY_PROJECT_STACK) {
+            Remove-Item Env:CHAINEDPY_PROJECT_STACK
+        }
+    }
+    function prompt { (Get-Location).Path + "> " }
+    Write-Host "ChainedPy project deactivated: $projectName"
+} else {
+    Write-Host "No ChainedPy project is currently active"
+}

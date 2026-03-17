@@ -1,0 +1,5 @@
+{% if not projects %}{{ no_projects_message }}{% else %}{{ available_projects_message }}
+{% for project in projects %}  {{ project }}{{ active_marker if active_project and project == active_project else "" }}
+{% endfor %}{% endif %}
+
+{% if active_project %}Active project: {{ active_project }}{% else %}No active project{% endif %}

@@ -1,0 +1,30 @@
+# ChainedPy shell integration
+# Add this to your PowerShell profile ($PROFILE)
+
+function chainedpy {
+    param([string]$Command, [string]$ProjectPath)
+
+    switch ($Command) {
+        "activate" {
+            if (-not $ProjectPath) {
+                Write-Host "Usage: chainedpy activate <project-path>"
+                return
+            }
+            $script = & chainedpy activate-project --project-path $ProjectPath --shell powershell
+            Invoke-Expression $script
+        }
+        "deactivate" {
+            $script = & chainedpy deactivate-project --shell powershell
+            Invoke-Expression $script
+        }
+        default {
+            & chainedpy @args
+        }
+    }
+}
+
+# Tab completion for chainedpy activate
+Register-ArgumentCompleter -CommandName chainedpy -ParameterName ProjectPath -ScriptBlock {
+    param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+    Get-ChildItem -Directory -Path "$wordToComplete*" | ForEach-Object { $_.Name }
+}
